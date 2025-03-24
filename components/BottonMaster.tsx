@@ -9,6 +9,8 @@ interface ButtonMasterProps {
     masterAlarmState: boolean; // Estado de la alarma 1000
 }
 
+//Esto luego a borrar
+
 
 const ButtonMaster: React.FC<ButtonMasterProps> = ({ mac, fetchAlarms, masterAlarmState }) => {
     const [isEnabled, setIsEnabled] = useState(masterAlarmState);
