@@ -1,6 +1,5 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DeviceDetailsScreen from "@/components/DeviceDetailsScreen";
 import HomeScreen from "./(tabs)/HomeScreen";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -18,11 +17,6 @@ export default function HomeStack() {
                 name="HomeScreen"
                 component={HomeScreen}
                 options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="DeviceDetails"
-                component={DeviceDetailsScreen}
-                options={{ headerTitle: "Detalles del Dispositivo" }}
             />
 
         </Stack.Navigator>

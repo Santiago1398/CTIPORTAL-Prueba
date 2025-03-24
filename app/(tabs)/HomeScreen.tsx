@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground, } from "react-native";
-import DeviceList from "@/components/DeviceList";
+import DeviceList from "@/components/DeviceListweb";
 
 
 
