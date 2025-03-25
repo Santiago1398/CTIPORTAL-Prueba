@@ -18,7 +18,6 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.santicticontrol.notificationtc5",
-      "googleServicesFile": "./android/app/google-services.json",
       "usesCleartextTraffic": true
     },
     "web": {
@@ -27,7 +26,6 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "@react-native-firebase/app",
       "expo-router",
       [
         "expo-splash-screen",
