@@ -1,8 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import SettingsScreen from "./SettingsScreen";
-import ProfileScreen from "./ProfileScreen";
 import HomeStack from "../HomeStack";
 
 const Tab = createBottomTabNavigator();
@@ -17,12 +15,12 @@ export default function TabsNavigator() {
                         case "Home":
                             iconName = "home";
                             break;
-                        case "Profile":
-                            iconName = "user";
-                            break;
-                        case "Settings":
-                            iconName = "cog";
-                            break;
+                        // case "Profile":
+                        //     iconName = "user";
+                        //     break;
+                        // case "Settings":
+                        //     iconName = "cog";
+                        //     break;
                         default:
                             iconName = "question-circle";
                     }
@@ -38,8 +36,6 @@ export default function TabsNavigator() {
             })}
         >
             <Tab.Screen name="Home" component={HomeStack} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     );
 }

@@ -15,7 +15,7 @@ export default function HomeScreen() {
                 <View style={styles.ctiContainer}>
                     <Text style={styles.headerText}>
                         <Text style={styles.cti}>CTI</Text>
-                        <Text style={styles.control}>Control</Text>
+                        <Text style={styles.Portal}>Portal</Text>
                     </Text>
                 </View>
                 <DeviceList />
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     cti: {
         color: "blue",
     },
-    control: {
+    Portal: {
         color: "green",
     },
 });
