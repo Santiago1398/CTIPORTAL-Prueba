@@ -1,11 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { DrawerContentComponentProps } from "@react-navigation/drawer"; // Importa el tipo correcto
+import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { useAuthStore } from "../store/authStore";
 
 export default function DrawerContent(props: DrawerContentComponentProps) {
     const { username: email, isActive, logout, isAuthenticated } = useAuthStore();
     const { navigation } = props;
+
+    // Función para cerrar sesión y redirigir al Login
+    const handleLogout = async () => {
+        await logout(); // Limpia la sesión
+        navigation.reset({
+            index: 0,
+            routes: [{ name: "Login" }],
+        });
+    };
 
     return (
         <View style={styles.container}>
@@ -32,7 +41,7 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
 
             {/* Botón para cerrar sesión si está autenticado */}
             {isAuthenticated && (
-                <TouchableOpacity onPress={logout} style={styles.logoutButton}>
+                <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                     <Text style={styles.logoutText}>Cerrar sesión</Text>
                 </TouchableOpacity>
             )}
