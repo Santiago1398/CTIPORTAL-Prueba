@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground, } from "react-native";
-import DeviceList from "@/components/DeviceListweb";
+import DeviceListweb from "@/components/DeviceListweb";
 
 
 
 export default function HomeScreen() {
     return (
         <ImageBackground
-            source={require("../../assets/images/pigs.png")}
+            source={require("assets/images/pigs.png")}
             style={styles.background}
             resizeMode="contain"
         >
@@ -18,7 +18,7 @@ export default function HomeScreen() {
                         <Text style={styles.Portal}>Portal</Text>
                     </Text>
                 </View>
-                <DeviceList />
+                <DeviceListweb />
             </View>
         </ImageBackground>
     );

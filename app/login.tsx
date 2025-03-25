@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }: any) {
         try {
             const success = await login(email, password);
             if (success) {
-                navigation.navigate("Home");
+                navigation.navigate("HomeScreen");
             } else {
                 console.log("Correo electrónico o contraseña incorrectos");
                 Alert.alert("Correo electrónico o contraseña incorrectos");
