@@ -3,10 +3,12 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import DrawerContent from "../components/DrawerContent";
 import LoginScreen from "./login";
 import HomeScreen from "./HomeScreen";
+import { useAuthStore } from "@/store/authStore";
 
 const Drawer = createDrawerNavigator();
-
 export default function Layout() {
+    const { isAuthenticated } = useAuthStore();
+
     return (
         <Drawer.Navigator
             drawerContent={(props) => <DrawerContent {...props} />}
@@ -18,15 +20,26 @@ export default function Layout() {
                 },
                 headerTintColor: "#000", // Color del texto del encabezado
             }}
+            initialRouteName={isAuthenticated ? "HomeScreen" : "Login"}
         >
             {/*  Ruta para HomeScreen */}
-            <Drawer.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{ headerTitle: "" }}
-            />
-
-            <Drawer.Screen name="Login" component={LoginScreen} options={{ headerTitle: "Iniciar Sesión" }} />
+            {isAuthenticated ? (
+                <Drawer.Screen
+                    name="HomeScreen"
+                    component={HomeScreen}
+                    options={{ headerTitle: "" }}
+                />
+            ) : (
+                <Drawer.Screen
+                    name="Login"
+                    component={LoginScreen}
+                    options={{
+                        headerTitle: "Iniciar Sesión",
+                        swipeEnabled: false,
+                        drawerItemStyle: { display: "none" },
+                    }}
+                />
+            )}
         </Drawer.Navigator>
 
 
