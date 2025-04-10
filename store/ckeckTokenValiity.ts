@@ -10,9 +10,12 @@ export const checkTokenValidity = async (): Promise<boolean> => {
         const apiUrl = useEnvStore.getState().getApiUrl();
         const res = await axios.post(`${apiUrl}/api/v1/loginMovil/validarToken`, { token });
 
-        return res.status === 200;
+        console.log("Respuesta del backend:", res.data);
+        return res.data.status === "OK"; // ✅ AQUÍ el cambio importante
     } catch (error) {
         console.error("Token no válido:", error);
         return false;
     }
 };
+
+

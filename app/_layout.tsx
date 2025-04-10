@@ -4,31 +4,36 @@ import DrawerContent from "../components/DrawerContent";
 import LoginScreen from "./login";
 import HomeScreen from "./HomeScreen";
 import { useAuthStore } from "@/store/authStore";
+import { ActivityIndicator, View } from "react-native";
 
 const Drawer = createDrawerNavigator();
+
 export default function Layout() {
-    const { isAuthenticated } = useAuthStore();
+    const { isAuthenticated, isHydrated } = useAuthStore();
+
+    if (!isHydrated) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
 
     return (
         <Drawer.Navigator
             drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{
-                headerShown: true, // Muestra el encabezado
-                headerTitleAlign: "center", // Alinea el título en el centro
+                headerShown: true,
+                headerTitleAlign: "center",
                 headerStyle: {
                     backgroundColor: "#fff",
                 },
-                headerTintColor: "#000", // Color del texto del encabezado
+                headerTintColor: "#000",
             }}
             initialRouteName={isAuthenticated ? "HomeScreen" : "Login"}
         >
-            {/*  Ruta para HomeScreen */}
             {isAuthenticated ? (
-                <Drawer.Screen
-                    name="HomeScreen"
-                    component={HomeScreen}
-                    options={{ headerTitle: "" }}
-                />
+                <Drawer.Screen name="HomeScreen" component={HomeScreen} options={{ headerTitle: "" }} />
             ) : (
                 <Drawer.Screen
                     name="Login"
@@ -41,18 +46,5 @@ export default function Layout() {
                 />
             )}
         </Drawer.Navigator>
-
-
-
     );
 }
-
-
-
-
-
-
-
-
-
-
