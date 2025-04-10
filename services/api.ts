@@ -6,6 +6,7 @@ import axios from "axios";
 // Obtiene los headers con el token desde ` AsyncStorage`
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@/config/apiConfig";
+import { useEnvStore } from "@/store/envSotre";
 
 const getHeaders = async () => {
     const token = await AsyncStorage.getItem("token"); // Obtiene el token almacenado
@@ -31,32 +32,29 @@ const getHeaders = async () => {
 
 
 // AXIOS: Buen post de axios ****************************
-export const post = async (path: string, data: unknown) => {
-    console.log("PostData", data);
-    console.log("path de post", `${API_URL}/${path}`);
+export const post = async (path: string, data: any) => {
+    const apiUrl = useEnvStore.getState().getApiUrl();
+    const fullUrl = `${apiUrl}${path.startsWith("/") ? path : `/${path}`}`;
 
-    const headers = await getHeaders();
-    const respuesta = await axios
-        .post(`${API_URL}/${path}`, data, {
-            headers: { ...headers },
+    console.log("path de post", fullUrl);
+    console.log("PostData", JSON.stringify(data));
+
+    try {
+        const response = await axios.post(fullUrl, data, {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
             timeout: 10000,
-            // No incluyas "Content-Type" aquí
-        })
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            if (error.code !== "ERR_NETWORK") {
-                console.log("Axios Error Response POST:", error.response);
-                throw new Error(JSON.stringify(error.response.data));
-            } else {
-                console.log("Axios Error POST CONEXION:", error);
-                throw new Error(JSON.stringify(error));
-            }
         });
 
-    return respuesta;
+        return response.data;
+    } catch (error: any) {
+        console.log("Axios Error Response POST:", error.response || error);
+        throw new Error(error.response?.data || "Error de conexión");
+    }
 };
+
 
 
 

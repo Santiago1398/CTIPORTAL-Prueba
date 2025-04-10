@@ -2,6 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./HomeScreen";
 import DeviceListweb from "@/components/DeviceListweb";
+import AuthGate from "@/components/AuthGate";
 
 export type RootStackParamList = {
     Home: undefined; // HomeScreen no necesita parámetros
@@ -28,6 +29,8 @@ export default function HomeStack() {
                 component={DeviceListweb}
                 options={{ headerShown: false }}
             />
+            <Stack.Screen name="AuthGate" component={AuthGate} options={{ headerShown: false }} />
+
         </Stack.Navigator>
 
     );

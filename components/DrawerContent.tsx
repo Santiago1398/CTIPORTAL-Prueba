@@ -4,7 +4,7 @@ import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { useAuthStore } from "../store/authStore";
 
 export default function DrawerContent(props: DrawerContentComponentProps) {
-    const { username: email, isActive, logout, isAuthenticated } = useAuthStore();
+    const { email: email, isActive, logout, isAuthenticated } = useAuthStore();
     const { navigation } = props;
 
     // Función para cerrar sesión y redirigir al Login
@@ -18,15 +18,13 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Menú</Text>
+            <Text style={styles.title}>
+                <Text style={styles.cti}>CTI</Text>
+                <Text style={styles.portal}>PORTAL</Text>
+            </Text>
             <View style={styles.userInfo}>
                 <Text style={styles.email}>{email || "Invitado"}</Text>
-                <Text style={styles.status}>
-                    Estado:{" "}
-                    <Text style={{ color: isActive ? "green" : "red" }}>
-                        {isActive ? "Activo" : "Inactivo"}
-                    </Text>
-                </Text>
+
             </View>
 
             {/* Botón para iniciar sesión si no está autenticado */}
@@ -94,4 +92,12 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
+    cti: {
+        color: "blue",
+
+    },
+    portal: {
+        color: "green",
+
+    }
 });

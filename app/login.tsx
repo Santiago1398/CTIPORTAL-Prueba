@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
@@ -6,15 +6,45 @@ import {
     TouchableOpacity,
     StyleSheet,
     Alert,
-    ImageBackground
+    ImageBackground,
+    Pressable
 } from "react-native";
 import { useAuthStore } from "../store/authStore";
 import { Feather } from "@expo/vector-icons";
+import { useEnvStore } from "@/store/envSotre";
+import { checkTokenValidity } from "@/store/ckeckTokenValiity";
 
 export default function LoginScreen({ navigation }: any) {
-    const { username: savedEmail, password: savedPassword, login } = useAuthStore();
+    const { email: savedEmail, password: savedPassword, login } = useAuthStore();
     const [email, setEmail] = useState(savedEmail || "");
     const [password, setPassword] = useState(savedPassword || "");
+
+    const { devMode, toggleMode } = useEnvStore();
+    const [tapCount, setTapCount] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+
+
+    const handleDevTap = () => {
+        const next = tapCount + 1;
+        setTapCount(next);
+        if (next >= 5) {
+            toggleMode();
+            Alert.alert("Modo cambiado", devMode ? "Modo producción" : "Modo desarrollo");
+            setTapCount(0);
+        }
+    };
+
+    useEffect(() => {
+        const validate = async () => {
+            const isValid = await checkTokenValidity();
+            if (isValid) {
+                navigation.replace("HomeScreen");
+            } else {
+                setIsLoading(false); // Solo mostramos el Login si no es válido
+            }
+        };
+        validate();
+    }, []);
 
     const handleLogin = async () => {
         try {
@@ -29,7 +59,7 @@ export default function LoginScreen({ navigation }: any) {
             throw new Error("Algo salió mal");
         }
     };
-
+    if (isLoading) { return null; }
     return (
         <View style={styles.container}>
 
@@ -41,14 +71,19 @@ export default function LoginScreen({ navigation }: any) {
             >
 
                 <View style={styles.overlay}>
-                    <Text style={styles.title}>Ingresar</Text>
-                    <Text style={styles.subtitle}>Por favor ingrese para continuar</Text>
+                    <Pressable onPress={handleDevTap} style={{ width: "100%", alignItems: "center" }}>
+                        <View>
+                            <Text style={styles.title}>Login </Text>
+                            <Text style={styles.subtitle}>Please log in to continue</Text>
+                            {devMode && <Text style={styles.devText}> Modo desarrollo</Text>}
 
+                        </View>
+                    </Pressable>
                     <View style={styles.inputContainer}>
                         <Feather name="mail" size={20} color="#666" style={styles.icon} />
                         <TextInput
                             style={styles.input}
-                            placeholder="Correo electrónico"
+                            placeholder="Email"
                             value={email}
                             onChangeText={setEmail}
                             keyboardType="email-address"
@@ -60,7 +95,7 @@ export default function LoginScreen({ navigation }: any) {
                         <Feather name="lock" size={20} color="#666" style={styles.icon} />
                         <TextInput
                             style={styles.input}
-                            placeholder="Contraseña"
+                            placeholder="Password"
                             value={password}
                             onChangeText={setPassword}
                             secureTextEntry
@@ -68,7 +103,7 @@ export default function LoginScreen({ navigation }: any) {
                     </View>
 
                     <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                        <Text style={styles.buttonText}>Ingresar</Text>
+                        <Text style={styles.buttonText}>Login in</Text>
                         <Feather name="arrow-right" size={20} color="#fff" style={styles.buttonIcon} />
                     </TouchableOpacity>
                 </View>
@@ -80,6 +115,7 @@ export default function LoginScreen({ navigation }: any) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+
     },
     backgroundImage: {
         flex: 1,
@@ -104,6 +140,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#666",
         marginBottom: 24,
+        textAlign: "center"
     },
     inputContainer: {
         flexDirection: "row",
@@ -144,4 +181,16 @@ const styles = StyleSheet.create({
     buttonIcon: {
         marginLeft: 8,
     },
+    // loginBox: {
+    //     backgroundColor: "#fff",
+    //     padding: 20,
+    //     borderRadius: 12
+    // },
+    devText: {
+        color: "red",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+
+
 });

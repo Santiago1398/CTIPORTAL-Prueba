@@ -3,9 +3,10 @@ import { persist } from "zustand/middleware";
 import zustandStorage from "./zustandStorage";
 import { post, postxxx } from "@/services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEnvStore } from "./envSotre";
 
 interface AuthState {
-    username: string | null;
+    email: string | null;
     password: string | null;
     token: string | null;
     userId: number | null;
@@ -14,44 +15,46 @@ interface AuthState {
     login: (email: string, password: string) => Promise<boolean>;
     logout: () => void;
     reslogin: string;
+
 }
 
 export const useAuthStore = create<AuthState>()(
     persist(
         (set) => ({
-            username: null,
+            email: null,
             password: null,
             token: null,
             userId: null,
             isAuthenticated: false,
             isActive: false,
             reslogin: "",
-            login: async (username, password) => {
+            login: async (email, password) => {
                 try {
+                    const response = await post("/api/v1/loginMovil", { email, password });
 
-                    const data = await postxxx("auth/login", { username, password });
-                    set({ reslogin: data.toString() });
+                    const { email: backendEmail, token } = response.data;
 
-                    console.log(" Datos del servidor:", data);
+                    if (!token) throw new Error("Token no recibido");
 
-                    await AsyncStorage.setItem("token", data.token);
-                    await AsyncStorage.setItem("userId", data.userId.toString());
-
+                    await AsyncStorage.setItem("token", token);
+                    console.log("Token guardado en AsyncStorage:", token);
 
                     set({
-                        username,
-                        token: data.token,
-                        userId: data.userId,
+                        email: backendEmail,
+                        token,
+                        userId: null,
                         isAuthenticated: true,
                         isActive: true,
                     });
 
                     return true;
                 } catch (error) {
-                    console.error(" Error en el inicio de sesión:", error);
+                    console.error("Error en el inicio de sesión:", error);
                     return false;
                 }
             },
+
+
 
             logout: async () => {
                 try {
@@ -59,7 +62,7 @@ export const useAuthStore = create<AuthState>()(
                     await AsyncStorage.removeItem("userId");
 
                     set({
-                        username: null,
+                        email: null,
                         password: null,
                         token: null,
                         userId: null,
