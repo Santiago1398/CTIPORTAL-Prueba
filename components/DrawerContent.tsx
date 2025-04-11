@@ -23,7 +23,7 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
                 <Text style={styles.portal}>PORTAL</Text>
             </Text>
             <View style={styles.userInfo}>
-                <Text style={styles.email}>{email || "Invitado"}</Text>
+                <Text style={styles.email}>{email || ""}</Text>
 
             </View>
 
