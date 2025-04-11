@@ -24,6 +24,9 @@ export default function Layout() {
             drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{
                 headerShown: true,
+                drawerStyle: {
+                    width: 250,
+                },
                 headerTitleAlign: "center",
                 headerStyle: {
                     backgroundColor: "#fff",
