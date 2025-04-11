@@ -36,15 +36,22 @@ export default function LoginScreen({ navigation }: any) {
 
     useEffect(() => {
         const validate = async () => {
+            console.log("🔄 Validando token...");
             const isValid = await checkTokenValidity();
+            console.log("✅ ¿Token válido?", isValid);
+
             if (isValid) {
                 navigation.replace("HomeScreen");
             } else {
-                setIsLoading(false); // Solo mostramos el Login si no es válido
+                console.log("🚪 Cerrando sesión (token inválido)");
+                useAuthStore.getState().logout();
+                setIsLoading(false);
             }
         };
         validate();
     }, []);
+
+
 
     const handleLogin = async () => {
         try {
