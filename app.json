@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "TC5-Portal",
+    "name": "CTI-Portal",
     "slug": "notification-tc5",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,7 +11,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.santicticontrol.notificationtc5",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleDisplayName": "TC5 Portal"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -20,7 +24,8 @@
         "versionCode": 1
       },
       "package": "com.santicticontrol.notificationtc5",
-      "usesCleartextTraffic": true
+      "usesCleartextTraffic": true,
+      "label": "TC5 Portal"
     },
     "web": {
       "bundler": "metro",

@@ -11,7 +11,7 @@ interface AuthState {
     userId: number | null;
     isAuthenticated: boolean;
     isActive: boolean;
-    isHydrated: boolean; // ✅ NUEVO
+    isHydrated: boolean;
 
     reslogin: string;
 
@@ -28,7 +28,7 @@ export const useAuthStore = create<AuthState>()(
             userId: null,
             isAuthenticated: false,
             isActive: false,
-            isHydrated: false, // ✅ al principio es false
+            isHydrated: false,
             reslogin: "",
 
 

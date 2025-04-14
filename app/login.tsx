@@ -18,6 +18,7 @@ export default function LoginScreen({ navigation }: any) {
     const { email: savedEmail, password: savedPassword, login } = useAuthStore();
     const [email, setEmail] = useState(savedEmail || "");
     const [password, setPassword] = useState(savedPassword || "");
+    const [showPassword, setShowPassword] = useState(false);
 
     const { devMode, toggleMode } = useEnvStore();
     const [tapCount, setTapCount] = useState(0);
@@ -101,11 +102,18 @@ export default function LoginScreen({ navigation }: any) {
                     <View style={styles.inputContainer}>
                         <Feather name="lock" size={20} color="#666" style={styles.icon} />
                         <TextInput
-                            style={styles.input}
+                            style={[styles.input, { paddingRight: 30 }]}
                             placeholder="Password"
                             value={password}
                             onChangeText={setPassword}
-                            secureTextEntry
+                            secureTextEntry={!showPassword}
+                        />
+                        <Feather
+                            name={showPassword ? "eye" : "eye-off"}
+                            size={20}
+                            color="#666"
+                            style={{ marginLeft: 8 }}
+                            onPress={() => setShowPassword(!showPassword)}
                         />
                     </View>
 
