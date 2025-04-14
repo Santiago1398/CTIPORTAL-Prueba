@@ -18,10 +18,10 @@
       }
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/ImagenCTIPORTAL.png",
-        "backgroundColor": "#ffffff",
-        "versionCode": 1
+        "backgroundColor": "#ffffff"
       },
       "package": "com.santicticontrol.notificationtc5",
       "usesCleartextTraffic": true,

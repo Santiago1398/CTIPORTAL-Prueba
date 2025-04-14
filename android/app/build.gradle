@@ -175,6 +175,8 @@ dependencies {
         implementation jscFlavor
     }
 
+    
+
     // Dependencias de Firebase (corrigiendo error de tipeo)
     //implementation 'com.google.firebase:firebase-core:19.0.0'
    

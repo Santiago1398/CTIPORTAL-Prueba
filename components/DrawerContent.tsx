@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { useAuthStore } from "../store/authStore";
 
@@ -18,7 +18,11 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>
+            <Image
+                source={require("../assets/images/Logo-CTI.png")}
+                style={styles.logo}
+            />
+            <Text style={styles.portalText}>
                 <Text style={styles.cti}>CTI</Text>
                 <Text style={styles.portal}>PORTAL</Text>
             </Text>
@@ -33,6 +37,8 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
                     onPress={() => navigation.navigate("Login")}
                     style={styles.loginButton}
                 >
+
+
                     <Text style={styles.loginText}>Iniciar Sesión</Text>
                 </TouchableOpacity>
             )}
@@ -92,12 +98,28 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
-    cti: {
-        color: "blue",
+    logo: {
+        width: 180,
+        height: 100,
+        resizeMode: "contain",
+        marginBottom: 20,
+        alignSelf: "center",
 
     },
+    cti: {
+        color: "blue",
+        fontWeight: "bold",
+    },
+
     portal: {
         color: "green",
+        fontWeight: "bold",
+    },
 
-    }
+    portalText: {
+        fontSize: 18,
+        textAlign: "center",
+        marginBottom: 20,
+    },
+
 });

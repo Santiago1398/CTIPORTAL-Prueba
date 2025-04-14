@@ -13,6 +13,8 @@ import { useAuthStore } from "../store/authStore";
 import { Feather } from "@expo/vector-icons";
 import { useEnvStore } from "@/store/envSotre";
 import { checkTokenValidity } from "@/store/ckeckTokenValiity";
+import { Image } from "react-native";
+
 
 export default function LoginScreen({ navigation }: any) {
     const { email: savedEmail, password: savedPassword, login } = useAuthStore();
@@ -81,7 +83,11 @@ export default function LoginScreen({ navigation }: any) {
                 <View style={styles.overlay}>
                     <Pressable onPress={handleDevTap} style={{ width: "100%", alignItems: "center" }}>
                         <View>
-                            <Text style={styles.title}>Login </Text>
+                            <Image
+                                source={require("assets/images/Logo-CTI.png")}
+                                style={styles.logo}
+                            />
+
                             <Text style={styles.subtitle}>Please log in to continue</Text>
                             {devMode && <Text style={styles.devText}> Modo desarrollo</Text>}
 
@@ -206,6 +212,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center"
     },
+    logo: {
+        width: 140, // Ajusta el tamaño como prefieras
+        height: 60,
+        resizeMode: "contain",
+        marginBottom: 16,
+        alignSelf: "center",
+    },
+
 
 
 });
