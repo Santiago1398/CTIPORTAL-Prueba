@@ -18,11 +18,11 @@
       }
     },
     "android": {
-      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/ImagenCTIPORTAL.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#005EB8"
       },
+      "versionCode": 1,
       "package": "com.santicticontrol.notificationtc5",
       "usesCleartextTraffic": true,
       "label": "TC5 Portal"

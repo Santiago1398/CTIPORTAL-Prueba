@@ -1,13 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useEnvStore } from "@/store/envSotre";
-import { useEffect } from "react";
+import { useAuthStore } from "./authStore";
 
 export const checkTokenValidity = async (): Promise<boolean> => {
     try {
-        const token = await AsyncStorage.getItem("token");
+        const token = useAuthStore.getState().token;
         if (!token) {
-            console.log("❌ No hay token en AsyncStorage");
+            console.log("❌ No hay token en el store");
             return false;
         }
         console.log("✅ Token encontrado:", token);
@@ -25,6 +25,7 @@ export const checkTokenValidity = async (): Promise<boolean> => {
         console.error("❌ Error al validar token:", error);
         return false;
     }
-};
+};;
+
 
 
