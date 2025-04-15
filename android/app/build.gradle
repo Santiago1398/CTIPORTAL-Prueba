@@ -154,6 +154,9 @@ dependencies {
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";
     def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true";
 
+    
+
+
 
     if (isGifEnabled) {
         // For animated gif support

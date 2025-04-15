@@ -13,11 +13,13 @@ interface AuthState {
     isActive: boolean;
     isHydrated: boolean;
 
+    setIsAuthenticated: (value: boolean) => void;
     reslogin: string;
 
     login: (email: string, password: string) => Promise<boolean>;
     logout: () => void;
 }
+
 
 export const useAuthStore = create<AuthState>()(
     persist(
@@ -31,6 +33,11 @@ export const useAuthStore = create<AuthState>()(
             isHydrated: false,
             reslogin: "",
 
+            setIsAuthenticated: (value: boolean) => {
+                set({ isAuthenticated: value });
+            },
+
+
 
             login: async (email, password) => {
                 try {
@@ -39,6 +46,9 @@ export const useAuthStore = create<AuthState>()(
 
                     if (!token) throw new Error("Token no recibido");
                     await AsyncStorage.setItem("token", token);
+
+                    AsyncStorage.getItem("auth-storage").then(console.log);
+
 
                     set({
                         email: backendEmail,
@@ -72,7 +82,7 @@ export const useAuthStore = create<AuthState>()(
         {
             name: "auth-storage",
             storage: zustandStorage,
-            onRehydrateStorage: (persistedState) => {
+            onRehydrateStorage: () => {
                 // esta función es llamada al iniciar
                 return (state) => {
                     // este `state` es el mismo objeto que manejamos en el store

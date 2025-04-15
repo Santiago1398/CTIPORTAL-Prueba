@@ -12,8 +12,9 @@ import {
 import { useAuthStore } from "../store/authStore";
 import { Feather } from "@expo/vector-icons";
 import { useEnvStore } from "@/store/envSotre";
-import { checkTokenValidity } from "@/store/ckeckTokenValiity";
 import { Image } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { post, postxxx } from "@/services/api";
 
 
 export default function LoginScreen({ navigation }: any) {
@@ -25,6 +26,8 @@ export default function LoginScreen({ navigation }: any) {
     const { devMode, toggleMode } = useEnvStore();
     const [tapCount, setTapCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const { isHydrated } = useAuthStore();
+
 
 
     const handleDevTap = () => {
@@ -37,26 +40,15 @@ export default function LoginScreen({ navigation }: any) {
         }
     };
 
-    useEffect(() => {
-        const validate = async () => {
-            console.log("🔄 Validando token...");
-            const isValid = await checkTokenValidity();
-            console.log("✅ ¿Token válido?", isValid);
-
-            if (isValid) {
-                navigation.replace("HomeScreen");
-            } else {
-                console.log("🚪 Cerrando sesión (token inválido)");
-                useAuthStore.getState().logout();
-                setIsLoading(false);
-            }
-        };
-        validate();
-    }, []);
 
 
 
     const handleLogin = async () => {
+
+
+
+
+
         try {
             const success = await login(email, password);
             if (success) {

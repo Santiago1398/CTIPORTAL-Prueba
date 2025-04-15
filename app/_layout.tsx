@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import DrawerContent from "../components/DrawerContent";
 import LoginScreen from "./login";
 import HomeScreen from "./HomeScreen";
 import { useAuthStore } from "@/store/authStore";
 import { ActivityIndicator, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { checkTokenValidity } from "@/store/ckeckTokenValiity";
+
 
 const Drawer = createDrawerNavigator();
 
 export default function Layout() {
-    const { isAuthenticated, isHydrated } = useAuthStore();
+    const { isAuthenticated, setIsAuthenticated, isHydrated } = useAuthStore();
+
+    useEffect(() => {
+        const validateToken = async () => {
+            const token = await AsyncStorage.getItem("token");
+            if (token) {
+                const isValid = await checkTokenValidity(token);
+                if (isValid) {
+                    setIsAuthenticated(true);
+                } else {
+                    await AsyncStorage.removeItem("token");
+                    setIsAuthenticated(false);
+                }
+            } else {
+                setIsAuthenticated(false);
+            }
+        };
+
+        validateToken();
+    }, []);
 
     if (!isHydrated) {
         return (

@@ -14,6 +14,7 @@ export const useEnvStore = create<EnvState>()(
         (set, get) => ({
             devMode: false,
             toggleMode: () => set((state) => ({ devMode: !state.devMode })),
+
             currentUrl: (token = "") =>
                 get().devMode
                     ? `https://ctiportaltest.cticontrol.com/login.xhtml?tokenMovil=${token}`

@@ -24,12 +24,15 @@ const DeviceListweb = () => {
     return (
         <SafeAreaView style={styles.container}>
             <WebView
+
                 style={styles.webview}
                 source={{ uri: finalUrl }}
+
                 onMessage={(event) => {
                     console.log("Mensaje recibido desde la web:", event.nativeEvent.data);
+                    console.log("url impirmida", finalUrl);
                 }}
-                injectedJavaScript={`window.postMessage("Hola", "*");`}
+                injectedJavaScript={`alert("Hola2: ${finalUrl}"); true;`}
             />
         </SafeAreaView>
     );

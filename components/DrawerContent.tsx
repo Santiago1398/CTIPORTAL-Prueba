@@ -23,8 +23,8 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
                 style={styles.logo}
             />
             <Text style={styles.portalText}>
-                <Text style={styles.cti}>CTI</Text>
-                <Text style={styles.portal}>PORTAL</Text>
+                <Text style={styles.portalText}>CTIPORTAL</Text>
+
             </Text>
             <View style={styles.userInfo}>
                 <Text style={styles.email}>{email || ""}</Text>
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         color: "#333",
+        textAlign: "center",
     },
     status: {
         fontSize: 16,
@@ -102,14 +103,11 @@ const styles = StyleSheet.create({
         width: 180,
         height: 100,
         resizeMode: "contain",
-        marginBottom: 20,
+        marginBottom: -14,
         alignSelf: "center",
 
     },
-    cti: {
-        color: "blue",
-        fontWeight: "bold",
-    },
+
 
     portal: {
         color: "green",
@@ -117,9 +115,13 @@ const styles = StyleSheet.create({
     },
 
     portalText: {
-        fontSize: 18,
+        fontSize: 20,
         textAlign: "center",
-        marginBottom: 20,
+        fontWeight: "900",
+        color: "#14268E",
+        marginTop: 0,
+        marginBottom: 70,
+
     },
 
 });

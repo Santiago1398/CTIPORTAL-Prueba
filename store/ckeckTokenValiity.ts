@@ -1,16 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useEnvStore } from "@/store/envSotre";
-import { useAuthStore } from "./authStore";
 
-export const checkTokenValidity = async (): Promise<boolean> => {
+export const checkTokenValidity = async (token: string): Promise<boolean> => {
     try {
-        const token = useAuthStore.getState().token;
+        console.log("llamando a la funcion checkTokenValidity");
+        const token = await AsyncStorage.getItem("token");
+        console.log("impirmir token :", token);
         if (!token) {
-            console.log("❌ No hay token en el store");
+            console.log(" No hay token en AsyncStorage");
             return false;
         }
-        console.log("✅ Token encontrado:", token);
+        console.log(" Token encontrado en AsyncStorage:", token);
 
         const apiUrl = useEnvStore.getState().getApiUrl();
         const res = await axios.post(`${apiUrl}/api/v1/loginMovil/validarToken`, { token });
@@ -22,10 +23,11 @@ export const checkTokenValidity = async (): Promise<boolean> => {
 
         return valido;
     } catch (error) {
-        console.error("❌ Error al validar token:", error);
+        console.error(" Error al validar token:", error);
         return false;
     }
-};;
+};
+
 
 
 
