@@ -43,25 +43,22 @@ export default function LoginScreen({ navigation }: any) {
 
 
 
+
     const handleLogin = async () => {
-
-
-
-
-
+        setIsLoading(true); // Inicia el estado de carga
         try {
             const success = await login(email, password);
             if (success) {
                 navigation.navigate("HomeScreen");
             } else {
-                console.log("Correo electrónico o contraseña incorrectos");
                 Alert.alert("Correo electrónico o contraseña incorrectos");
             }
         } catch (error) {
-            throw new Error("Algo salió mal");
+            Alert.alert("Error", "Algo salió mal");
+        } finally {
+            setIsLoading(false); // Finaliza el estado de carga
         }
     };
-    if (isLoading) { return null; }
     return (
         <View style={styles.container}>
 

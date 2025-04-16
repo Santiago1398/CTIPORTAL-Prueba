@@ -13,7 +13,7 @@ export default function AuthGate() {
             const token = await AsyncStorage.getItem("token");
 
             if (token) {
-                const valid = await checkTokenValidity();
+                const valid = await checkTokenValidity(token);
                 if (valid) {
                     navigation.replace("HomeScreen"); // o WebViewScreen
                 } else {

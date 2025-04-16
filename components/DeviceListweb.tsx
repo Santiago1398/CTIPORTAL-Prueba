@@ -32,7 +32,7 @@ const DeviceListweb = () => {
                     console.log("Mensaje recibido desde la web:", event.nativeEvent.data);
                     console.log("url impirmida", finalUrl);
                 }}
-                injectedJavaScript={`alert("Hola2: ${finalUrl}"); true;`}
+                injectedJavaScript={`("Hola2: ${finalUrl}"); true;`}
             />
         </SafeAreaView>
     );
