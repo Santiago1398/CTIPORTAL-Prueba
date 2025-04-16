@@ -8,7 +8,7 @@ import { ActivityIndicator, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { checkTokenValidity } from "@/store/ckeckTokenValiity";
 
-
+//
 const Drawer = createDrawerNavigator();
 
 export default function Layout() {
