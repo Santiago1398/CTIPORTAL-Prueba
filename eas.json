@@ -21,10 +21,20 @@
       "autoIncrement": true,
       "android": {
         "buildType": "app-bundle"
+      },
+      "ios": {
+        "simulator": false,
+        "autoIncrement": true,
+        "distribution": "store",
+        "credentialsSource": "remote"
       }
+      
     }
   },
   "submit": {
     "production": {}
   }
+  
+    
+  
 }
