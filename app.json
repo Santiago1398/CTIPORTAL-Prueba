@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.santicticontrol.ctiportal",
+      "bundleIdentifier": "com.cti.ctiportalv2",
       "buildNumber": "1.0.0",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
@@ -22,8 +22,8 @@
         "foregroundImage": "./assets/images/ImagenCTIPORTAL.png",
         "backgroundColor": "#005EB8"
       },
-      "versionCode": 1,
-      "package": "com.santicticontrol.ctiportal",
+      "versionCode": 4,
+      "package": "com.cti.ctiportalv2",
       "usesCleartextTraffic": true,
       "label": "CTIPortal"
     },
@@ -52,9 +52,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "326c0c10-1376-4c44-9596-910e6bcc15c5"
+        "projectId": "ac5a5f62-f7b4-4e22-b614-a8e5abd6f349"
       }
     },
-    "owner": "santcticontrol"
+    "owner": "santicticontrol"
   }
 }
